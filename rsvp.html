@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forty on the Rocks | RSVP</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background-color: #efe8dd;
+      color: #111;
+    }
+
+    .container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+    .invite-image {
+      width: 100%;
+      border: 1px solid #000;
+      margin-bottom: 32px;
+    }
+
+    .rsvp-box {
+      background-color: #fff;
+      border: 2px solid #000;
+      padding: 32px;
+    }
+
+    h1 {
+      font-size: 28px;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    p.subhead {
+      font-size: 14px;
+      margin-bottom: 32px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 24px;
+  border: 1px solid #000;
+  font-size: 16px; /* important for mobile */
+}
+
+    textarea {
+      resize: vertical;
+    }
+
+    button {
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+@media (min-width: 768px) {
+  .container {
+    padding: 32px;
+  }
+
+  .rsvp-box {
+    padding: 40px;
+  }
+
+  button {
+    width: auto;
+    padding: 14px 32px;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- Invite Image -->
+    <img 
+      src="Pat 40th.png" 
+      alt="Forty on the Rocks Invitation"
+      class="invite-image"
+    />
+
+    <!-- RSVP Form -->
+    <div class="rsvp-box">
+      <h1>RSVP</h1>
+      <p class="subhead">Kindly reply before the ice melts</p>
+
+     <form id="rsvpForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="attendance">Will you be joining us?</label>
+        <select id="attendance" name="attendance" required>
+          <option value="">Select one</option>
+          <option value="yes">Yes, I’ll be there</option>
+          <option value="no">Regretfully, I can’t make it</option>
+        </select>
+
+        <label for="guests">Number of guests</label>
+        <input type="number" id="guests" name="guests" min="1" max="4" />
+
+        <label for="notes">Notes (optional)</label>
+        <textarea id="notes" name="notes" rows="3"></textarea>
+
+        <button type="submit">Submit RSVP</button>
+      </form>
+
+      <div class="footer-note">
+        Drinks and apps starting at 6PM
+      </div>
+    </div>
+
+  </div>
+<script>
+  const form = document.getElementById('rsvpForm');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const data = {
+      name: document.getElementById('name').value,
+      attendance: document.getElementById('attendance').value,
+      guests: document.getElementById('guests').value,
+      notes: document.getElementById('notes').value
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycbzKk9mVaiFDCJmbPZal1ghhVdPS0vYgoosPZoZWnxet6d3PYubYP-1x4LN-Hf7Te5icMw/exec ', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then(() => {
+      alert('RSVP received. We’ll save you a seat at the bar.');
+      form.reset();
+    })
+    .catch(() => {
+      alert('Something went wrong. Try again.');
+    });
+  });
+</script>
+</body>
+</html>

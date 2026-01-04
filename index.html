@@ -147,18 +147,9 @@ input, select, textarea {
   </div>
 <script>
   const form = document.getElementById('rsvpForm');
-  const submitButton = form.querySelector('button');
-
-  let hasSubmitted = false;
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-
-    if (hasSubmitted) return;
-    hasSubmitted = true;
-
-    submitButton.disabled = true;
-    submitButton.innerText = 'Submitting…';
 
     const data = {
       name: document.getElementById('name').value,
@@ -167,25 +158,16 @@ input, select, textarea {
       notes: document.getElementById('notes').value
     };
 
-    fetch('https://script.google.com/macros/s/AKfycbzKk9mVaiFDCJmbPZal1ghhVdPS0vYgoosPZoZWnxet6d3PYubYP-1x4LN-Hf7Te5icMw/exec', {
+    fetch('https://script.google.com/macros/s/AKfycbzKk9mVaiFDCJmbPZal1ghhVdPS0vYgoosPZoZWnxet6d3PYubYP-1x4LN-Hf7Te5icMw/exec ', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify(data)
     })
     .then(() => {
-      form.innerHTML = `
-        <p style="text-align:center; letter-spacing:0.08em; text-transform:uppercase;">
-          RSVP received.<br/>We’ll save you a seat at the bar.
-        </p>
-      `;
+      alert('RSVP received. We’ll save you a seat at the bar.');
+      form.reset();
     })
     .catch(() => {
-      submitButton.disabled = false;
-      submitButton.innerText = 'Submit RSVP';
-      hasSubmitted = false;
-      alert('Something went wrong. Please try again.');
+      alert('Something went wrong. Try again.');
     });
   });
 </script>
